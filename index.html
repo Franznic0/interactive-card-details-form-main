@@ -4,48 +4,116 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
 
+  <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=Space+Grotesk:wght@500&display=swap" rel="stylesheet">
   
   <title>Frontend Mentor | Interactive card details form</title>
 
-  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
-  <style>
-    .attribution { font-size: 11px; text-align: center; }
-    .attribution a { color: hsl(228, 45%, 44%); }
-  </style>
 </head>
 <body>
 
-  0000 0000 0000 0000
-  Jane Appleseed
-  00/00
+  <main>
 
-  000
+    <!-- Card Section -->
+    <section class="container card-container">
 
-  Cardholder Name
-  e.g. Jane Appleseed
+      <div class="front-card">
 
-  Card Number
-  e.g. 1234 5678 9123 0000
+        <div class="card-logo">
+          <img src="./images/card-logo.svg" alt="Logocard">
+        </div>
+        
+        <div class="card-number">
+          <p>0000 0000 0000 0000</p>
+        </div>
 
-  Exp. Date (MM/YY)
-  MM
-  YY
+        <div class="card-details-wrap">
+          <p>Jane Appleseed</p>
+          <p>00/00</p>
+        </div>      
+        
+      </div>
 
-  CVC
-  e.g. 123
+      <div class="retro-card">
+        <div class="cvc-number">
+          000
+        </div>
+      </div>
 
-  Confirm
+    </section>
 
-  <!-- Completed state start -->
+    <!-- Cardholder input form -->
 
-  Thank you!
-  We've added your card details
-  Continue
+    <section class="container form-container">
+
+      <form action="/" class="card-input-form">
+
+        <label for="card-container">Cardholder Name</label>
+        <input type="text" name="cardholder-name" id="caldholder-name" class="card-details" placeholder="e.g. Jane Appleseed">
+        <p class="error-message error-cardholder"></p>
+        
+        <label for="card-number">Card Number</label>
+        <input type="text" name="card-number" id="card-number" class="card-details" placeholder="e.g. 1234 5678 9123 0000">
+        <p class="error-message error-number"></p>
+        
+        <div class="card-security-wrap">
+
+          <div class="card-security date">
+
+            <label for="exp-date">Exp. Date (MM/YY)</label>
+            <div class="exp-date-wrap">
+
+              <input type="text" name="exp-date" id="exp-date-month" class="card-details input-security-det" placeholder="MM">
+              <input type="text" name="exp-date" id="exp-date-year" class="card-details input-security-det" placeholder="YY">
+            
+            </div>
+            <p class="error-message error-date"></p>
+
+          </div>
   
-  <div class="attribution">
-    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
-    Coded by <a href="#">Your Name Here</a>.
-  </div>
+          <div class="card-security cvc">
+
+            <label for="cvc">CVC</label>
+            <input type="text" name="cvc" id="cvc" class="card-details" placeholder="e.g. 123">
+            <p class="error-message error-cvc"></p>
+
+          </div>
+
+        </div>
+
+      </form>
+
+      <button id="form-submit" type="button" class="submit">Confirm</button>
+    </section>
+    
+   <!-- Completed state start -->
+
+    <section class="container complete-state">
+
+      <img class="complete-state-img" src="./images/icon-complete.svg" alt="Complete!">
+      <h2 class="complete-state-header">Thank you!</h2>
+      <p class="complete-state-text">We've added your card details</p>
+      <button id="compolete-submit" type="button" class="submit">Continue</button>
+
+    </section>
+
+  </main>
+
+  <footer>
+    
+    <div class="attribution">
+      Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
+      Coded by <a href="#">Your Name Here</a>.
+    </div>
+  
+  </footer>
+
+  
+  
+
+  <script src="./app.js"></script>
 </body>
 </html>
