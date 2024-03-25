@@ -47,7 +47,7 @@
       <form action="#" class="card-input-form">
 
         <label for="card-container">Cardholder Name</label>
-        <input type="text" name="cardholder-name" id="cardholder-name" class="card-details" placeholder="e.g. Jane Appleseed" maxlength="25">
+        <input type="text" name="cardholder-name" id="cardholder-name" class="card-details" placeholder="e.g. Jane Appleseed" maxlength="25" required>
         <p id="error-cardholder" class="error-message "></p>
         
         <label for="card-number">Card Number</label>
@@ -61,8 +61,8 @@
             <label for="exp-date">Exp. Date (MM/YY)</label>
             <div class="exp-date-wrap">
 
-              <input type="number" name="exp-date" id="exp-date-month" class="card-details input-security-det" placeholder="MM" min="01" max="12" maxlength="2">
-              <input type="number" name="exp-date" id="exp-date-year" class="card-details input-security-det" placeholder="YY" min="14" maxlength="2">
+              <input type="number" name="exp-date" id="exp-date-month" class="card-details input-security-det" placeholder="MM" min="01" max="12">
+              <input type="number" name="exp-date" id="exp-date-year" class="card-details input-security-det" placeholder="YY" min="" max="">
             
             </div>
             <p id="error-date" class="error-message "></p>

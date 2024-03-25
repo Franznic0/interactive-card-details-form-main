@@ -98,29 +98,6 @@ const reset = document.querySelector('.complete-submit');
         return (nCheck % 10) == 0;
     }
 
-    // Expiration Date Validation
-
-    function validateExpirationDate(expMonthIn, expYearIn) {
-        const currentDate = new Date();
-        const currentYear = currentDate.getFullYear();
-        const currentMonth = currentDate.getMonth() + 1; // January is 0
-
-        if (expYearIn > currentYear) {
-            return true;
-        } else if (expYearIn === currentYear && expMonthIn >= currentMonth) {
-            return true;
-        }
-
-        return false;
-    }
-
-    // CVC Validation
-
-    function validateCVV(cvcIn) {
-        const cvvPattern = /^[0-9]{3,4}$/;
-        return cvvPattern.test(cvcIn);
-    }
-
     // Card Number Validation
 
     cardNumIn.addEventListener("input", (e) => {
@@ -132,15 +109,32 @@ const reset = document.querySelector('.complete-submit');
             errNumber.innerHTML = "";
         }
     });
-
+    
     // Card expiry date
+    
+        // Expiration Date Validation
+    
+        function validateExpirationDate(expMonthIn, expYearIn) {
+            const currentDate = new Date();
+            const currentYear = currentDate.getFullYear();
+            const currentMonth = currentDate.getMonth() + 1; // January is 0
+    
+            if (expYearIn > currentYear) {
+                return true;
+            } else if (expYearIn === currentYear && expMonthIn >= currentMonth) {
+                return true;
+            }
+    
+            return false;
+        }
 
+        // Event Listener
     // expireDate.addEventListener("input", (e) => {
-    //     const dateExpression = new RegExp("^(0[1-9]|1[0-2])\/?([0-9]{2})$");
-    //     if (dateExpression.test(e.target.value)) {
-    //         expireDateWarning.classList.add("hidden");
-    //         let data = e.target.value.split("/");
-    //         let expirationMonth = data[0];
+        //     const dateExpression = new RegExp("^(0[1-9]|1[0-2])\/?([0-9]{2})$");
+        //     if (dateExpression.test(e.target.value)) {
+            //         expireDateWarning.classList.add("hidden");
+            //         let data = e.target.value.split("/");
+            //         let expirationMonth = data[0];
     //         let expirationYear = '20' + data[1];
     //         // Validate expiration date
     //         if (!validateExpirationDate(expirationMonth, expirationYear)) {
@@ -154,8 +148,11 @@ const reset = document.querySelector('.complete-submit');
     //     }
     // });
 
-
-    // cvc Validator 
+// CVC Validation
+    function validateCVV(cvcIn) {
+        const cvvPattern = /^[0-9]{3}$/;
+        return cvvPattern.test(cvcIn);
+    }
 
     cvcIn.addEventListener("input", (e) => {
         if (!validateCVV(e.target.value)) {
