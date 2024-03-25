@@ -49,7 +49,7 @@ const reset = document.querySelector('.complete-submit');
         }
     }
 
-    str.match(/(\d{4})/g).join(" ")
+    // str.match(/(\d{4})/g).join(" ")
 
     let dateExe = "00";
     expMonthIn.oninput = () => {
@@ -129,10 +129,44 @@ const reset = document.querySelector('.complete-submit');
     cardNumIn.addEventListener("input", (e) => {
         if (!validateLuhnAlgorithm(e.target.value)) {
             cardNumIn.classList.add("error");
-            errNumber.innerHTML = "Invalid card number";
+            errNumber.innerHTML = "Wrong format, numbers only";
         } else {
             cardNumIn.classList.remove("error");
             errNumber.innerHTML = "";
+        }
+    });
+
+    // Card expiry date
+
+    // expireDate.addEventListener("input", (e) => {
+    //     const dateExpression = new RegExp("^(0[1-9]|1[0-2])\/?([0-9]{2})$");
+    //     if (dateExpression.test(e.target.value)) {
+    //         expireDateWarning.classList.add("hidden");
+    //         let data = e.target.value.split("/");
+    //         let expirationMonth = data[0];
+    //         let expirationYear = '20' + data[1];
+    //         // Validate expiration date
+    //         if (!validateExpirationDate(expirationMonth, expirationYear)) {
+    //             expireDateWarning.classList.remove("hidden");
+    //             return "Card has expired";
+    //         } else {
+    //             expireDateWarning.classList.add("hidden");
+    //         }
+    //     } else {
+    //         expireDateWarning.classList.remove("hidden");
+    //     }
+    // });
+
+
+    // cvc Validator 
+
+    cvcIn.addEventListener("input", (e) => {
+        if (!validateCVV(e.target.value)) {
+            cvcIn.classList.add("error");
+            errCvc.innerHTML = "Invalid CVV";
+        } else {
+            cvcIn.classList.remove("error");
+            errCvc.innerHTML = "";
         }
     });
 

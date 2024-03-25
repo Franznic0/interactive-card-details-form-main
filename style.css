@@ -205,10 +205,6 @@ label {
   padding: 0.4em 0.8em;
 }
 
-.card-details.error {
-  border: 1px solid var(--b-error);
-}
-
 ::placeholder {
   color: var(--fc-light);
 }
@@ -229,7 +225,7 @@ input::-webkit-inner-spin-button {
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
-
+  
   width: 50%;
 }
 
@@ -253,8 +249,12 @@ input::-webkit-inner-spin-button {
   letter-spacing: normal;
   font-size: 0.8em;
   min-height: 0.7lh;
-
+  
   margin-bottom: 0.8rem;
+}
+
+.card-details.error {
+  border: 1px solid var(--b-error);
 }
 
 .submit {
