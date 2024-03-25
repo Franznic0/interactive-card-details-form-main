@@ -83,22 +83,19 @@ const reset = document.querySelector('.complete-submit');
 
     // Luhn Algorithm
     function validateLuhnAlgorithm(cardNumIn) {
-        let sum = 0;
-        let isEven = false;
+        let nCheck = 0, bEven = false;
 
-        for (let i = cardNumIn.length - 1; i >= 0; i--) {
-            let digit = parseInt(cardNumIn.charAt(i), 10);
+        for (var n = cardNumIn.length - 1; n >= 0; n--) {
+            var cDigit = cardNumIn.charAt(n),
+                nDigit = parseInt(cDigit, 10);
 
-            if (isEven) {
-                digit *= 2;
-                if (digit > 9) {
-                    digit -= 9;
-                }
-            }
-            sum += digit;
-            isEven = !isEven;
+            if (bEven && (nDigit *= 2) > 9) nDigit -= 9;
+
+            nCheck += nDigit;
+            bEven = !bEven;
         }
-        return sum % 10 === 0;
+
+        return (nCheck % 10) == 0;
     }
 
     // Expiration Date Validation
