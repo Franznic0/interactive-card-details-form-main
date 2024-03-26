@@ -96,6 +96,25 @@ const reset = document.querySelector('.complete-submit');
         }
     }
 };
+
+// cvc
+function validateCVV(cvcIn) {
+            const cvvPattern = /^[0-9]{3}$/;
+            return cvvPattern.test(cvcIn);
+        }
+let cvcExe = "000";
+cvcIn.oninput = () => {
+    if (cvcIn.value == "") {
+        cvcOut.innerText = cvcExe;
+    } else if (!validateCVV(cvcIn.value)) {
+        cvcIn.classList.add("error");
+        errCvc.innerHTML = "Invalid CVV";
+    } else {
+        cvcIn.classList.remove("error");
+        errCvc.innerHTML = "";
+        cvcOut.innerText = cvcIn.value;
+    }
+}
     
     // submit form
     
