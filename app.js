@@ -25,6 +25,7 @@ const errCvc = document.querySelector("#error-cvc");
 const reset = document.querySelector('.complete-submit');
 
 
+
 // update values
 
     function updateValues() {
@@ -43,7 +44,6 @@ const reset = document.querySelector('.complete-submit');
         if (cardNumIn.value == "") {
             cardNumOut.innerText = numExe;
         } else {
-
             cardNumOut.innerText = cardNumIn.value.match(/(\d{4})/g).join(" ");
         }
     }
@@ -75,83 +75,118 @@ const reset = document.querySelector('.complete-submit');
     }
 
     }
+    
+    // submit form
+    
+        document.querySelector('#form-submit').addEventListener('click', function(e) {
+            // e.preventDefault();
+    
+            nameValidation();
+            // validateCard();
+        })
+
+    // validate name
+    
+    function nameValidation () {
+        if (!nameIn.value.match(/^[A-Za-z]+$/)) {
+            nameIn.classList.add('error');
+            errName.innerHTML = "Insert valid name";
+        } else {
+            nameIn.classList.remove('error');
+            errName.innerHTML = "";
+        }
+    }
+
+
+    // validate card
+
+    function validateCard () {
+        
+        // Luhn Algorithm
+            function validateLuhnAlgorithm(cardNumIn) {
+                let nCheck = 0, bEven = false;
+            
+                for (var n = cardNumIn.length - 1; n >= 0; n--) {
+                    var cDigit = cardNumIn.charAt(n),
+                        nDigit = parseInt(cDigit, 10);
+            
+                    if (bEven && (nDigit *= 2) > 9) nDigit -= 9;
+            
+                    nCheck += nDigit;
+                    bEven = !bEven;
+                }
+            
+                return (nCheck % 10) == 0;
+            }
+
+        // card validity check
+
+            cardNumIn.addEventListener("input", (e) => {
+                if (!validateLuhnAlgorithm(e.target.value)) {
+                    cardNumIn.classList.add("error");
+                    errNumber.innerHTML = "Wrong format, numbers only";
+                } else {
+                    cardNumIn.classList.remove("error");
+                    errNumber.innerHTML = "";
+                    console.log(cardNumIn.value);
+                }
+            });
+    }
+
+    // Date validation
+
+    // Expiration Date Validation
+    function validateExpirationDate(expMonthIn, expYearIn) {
+        const currentDate = new Date();
+        const currentYear = currentDate.getFullYear();
+        const currentMonth = currentDate.getMonth() + 1; // January is 0
+            
+        console.log(currentYear + 4);
+            
+        expYearIn.setAttribute('max', currentYear);
+        expYearIn.attr.max = currentYear + 4;
+
+        console.log(expYearIn.attr.max);
+             
+        if (expYearIn > currentYear) {
+            return true;
+        } else if (expYearIn === currentYear && expMonthIn >= currentMonth) {
+            return true;
+        }
+    
+        return false;
+    }
+    
+    function validateDate() {
+        validateExpirationDate();
+        // Card expiry date 
+
+            // Event Listener
+            expireDate.addEventListener("input", (e) => {
+                    const dateExpression = new RegExp("^(0[1-9]|1[0-2])\/?([0-9]{2})$");
+                    if (dateExpression.test(e.target.value)) {
+                            expireDateWarning.classList.add("hidden");
+                            let data = e.target.value.split("/");
+                            let expirationMonth = data[0];
+                    let expirationYear = '20' + data[1];
+                    // Validate expiration date
+                    if (!validateExpirationDate(expirationMonth, expirationYear)) {
+                        expireDateWarning.classList.remove("hidden");
+                        return "Card has expired";
+                    } else {
+                        expireDateWarning.classList.add("hidden");
+                    }
+                } else {
+                    expireDateWarning.classList.remove("hidden");
+                }
+            });
+
+    }
+
 
 // // validate form
 
-//     // Luhn Algorithm
-//     function validateLuhnAlgorithm(cardNumIn) {
-//         let nCheck = 0, bEven = false;
-
-//         for (var n = cardNumIn.length - 1; n >= 0; n--) {
-//             var cDigit = cardNumIn.charAt(n),
-//                 nDigit = parseInt(cDigit, 10);
-
-//             if (bEven && (nDigit *= 2) > 9) nDigit -= 9;
-
-//             nCheck += nDigit;
-//             bEven = !bEven;
-//         }
-
-//         return (nCheck % 10) == 0;
-//     }
-
-//     // Card Number Validation
-
-//     cardNumIn.addEventListener("input", (e) => {
-//         if (!validateLuhnAlgorithm(e.target.value)) {
-//             cardNumIn.classList.add("error");
-//             errNumber.innerHTML = "Wrong format, numbers only";
-//         } else {
-//             cardNumIn.classList.remove("error");
-//             errNumber.innerHTML = "";
-//         }
-//     });
     
-//     // Card expiry date
-    
-//         // Expiration Date Validation
-    
-//         function validateExpirationDate(expMonthIn, expYearIn) {
-//             const currentDate = new Date();
-//             const currentYear = currentDate.getFullYear();
-//             const currentMonth = currentDate.getMonth() + 1; // January is 0
-            
-//             console.log(currentYear + 4);
-            
-//             expYearIn.setAttribute('max', currentYear);
-//             expYearIn.attr.max = currentYear + 4;
-
-//             console.log(expYearIn.attr.max);
-             
-//             if (expYearIn > currentYear) {
-//                 return true;
-//             } else if (expYearIn === currentYear && expMonthIn >= currentMonth) {
-//                 return true;
-//             }
-    
-//             return false;
-//         }
-//         validateExpirationDate();
-
-//         // Event Listener
-//     // expireDate.addEventListener("input", (e) => {
-//         //     const dateExpression = new RegExp("^(0[1-9]|1[0-2])\/?([0-9]{2})$");
-//         //     if (dateExpression.test(e.target.value)) {
-//             //         expireDateWarning.classList.add("hidden");
-//             //         let data = e.target.value.split("/");
-//             //         let expirationMonth = data[0];
-//     //         let expirationYear = '20' + data[1];
-//     //         // Validate expiration date
-//     //         if (!validateExpirationDate(expirationMonth, expirationYear)) {
-//     //             expireDateWarning.classList.remove("hidden");
-//     //             return "Card has expired";
-//     //         } else {
-//     //             expireDateWarning.classList.add("hidden");
-//     //         }
-//     //     } else {
-//     //         expireDateWarning.classList.remove("hidden");
-//     //     }
-//     // });
 
 // // CVC Validation
 //     function validateCVV(cvcIn) {

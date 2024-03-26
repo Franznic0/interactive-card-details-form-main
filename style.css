@@ -253,7 +253,7 @@ input::-webkit-inner-spin-button {
   margin-bottom: 0.8rem;
 }
 
-.card-details.error {
+.error {
   border: 1px solid var(--b-error);
 }
 
