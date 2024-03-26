@@ -30,73 +30,82 @@ const reset = document.querySelector('.complete-submit');
 
     function updateValues() {
 
+        // Name
         let nameExe = "Jane Appleseed";
     nameIn.oninput = () => {
         if (nameIn.value == "") {
             nameOut.innerText = nameExe;
+        } else if (!nameIn.value.match(/[A-Za-z+s]+/)) {
+            nameIn.classList.add('error');
+            errName.innerHTML = "Insert valid name";
         } else {
+            nameIn.classList.remove('error');
+            errName.innerHTML = "";
             nameOut.innerText = nameIn.value;
-        }
+        };
+
+        
     }
 
+    // Card Number
     let numExe = "0000 0000 0000 0000";
     cardNumIn.oninput = () => {
         if (cardNumIn.value == "") {
             cardNumOut.innerText = numExe;
+        } else if (!cardNumIn.value.match(/^[0-9]+$/)){
+            cardNumIn.classList.add("error");
+            errNumber.innerHTML = "Wrong format, numbers only";
         } else {
+            cardNumIn.classList.remove("error");
+            errNumber.innerHTML = "";
             cardNumOut.innerText = cardNumIn.value.match(/(\d{4})/g).join(" ");
         }
     }
 
+    // Month
     let dateExe = "00";
     expMonthIn.oninput = () => {
         if (expMonthIn.value == "") {
             expMonthOut.innerText = dateExe;
+        } else if (expMonthIn.value > 12){
+            expMonthIn.classList.add("error");
+            errDate.innerHTML = "Invalid date";
         } else {
+            expMonthIn.classList.remove("error");
+            errDate.innerHTML = "";
             expMonthOut.innerText = expMonthIn.value;
         }
     }
 
+    // Year
     expYearIn.oninput = () => {
+        const currentDate = new Date();
+        const currentYear = currentDate.getFullYear();
+        let checkYear = "20" + expYearIn.value;
+        let maxValididty = currentYear + 4;
+
         if (expYearIn.value == "") {
             expYearOut.innerText = dateExe;
+        } else if ( checkYear > maxValididty || checkYear < currentYear){
+            expYearIn.classList.add("error");
+            errDate.innerHTML = "Invalid date";
         } else {
+            expYearIn.classList.remove("error");
+            errDate.innerHTML = "";
             expYearOut.innerText = expYearIn.value;
         }
     }
-
-    let cvcExe = "000";
-    cvcIn.oninput = () => {
-        if (cvcIn.value == "") {
-            cvcOut.innerText = cvcExe;
-        } else {
-            cvcOut.innerText = cvcIn.value;
-        }
-    }
-
-    }
+};
     
     // submit form
     
         document.querySelector('#form-submit').addEventListener('click', function(e) {
             // e.preventDefault();
     
-            nameValidation();
             // validateCard();
+            validateDate();
+            validationCvc();
         })
-
-    // validate name
-    
-    function nameValidation () {
-        if (!nameIn.value.match(/^[A-Za-z]+$/)) {
-            nameIn.classList.add('error');
-            errName.innerHTML = "Insert valid name";
-        } else {
-            nameIn.classList.remove('error');
-            errName.innerHTML = "";
-        }
-    }
-
 
     // validate card
 
@@ -119,18 +128,6 @@ const reset = document.querySelector('.complete-submit');
                 return (nCheck % 10) == 0;
             }
 
-        // card validity check
-
-            cardNumIn.addEventListener("input", (e) => {
-                if (!validateLuhnAlgorithm(e.target.value)) {
-                    cardNumIn.classList.add("error");
-                    errNumber.innerHTML = "Wrong format, numbers only";
-                } else {
-                    cardNumIn.classList.remove("error");
-                    errNumber.innerHTML = "";
-                    console.log(cardNumIn.value);
-                }
-            });
     }
 
     // Date validation
@@ -141,10 +138,9 @@ const reset = document.querySelector('.complete-submit');
         const currentYear = currentDate.getFullYear();
         const currentMonth = currentDate.getMonth() + 1; // January is 0
             
-        console.log(currentYear + 4);
-            
-        expYearIn.setAttribute('max', currentYear);
+        // expYearIn.setAttribute('max', currentYear);
         expYearIn.attr.max = currentYear + 4;
+        console.log(expYearIn.attr.max);
 
         console.log(expYearIn.attr.max);
              
@@ -156,53 +152,8 @@ const reset = document.querySelector('.complete-submit');
     
         return false;
     }
-    
-    function validateDate() {
-        validateExpirationDate();
-        // Card expiry date 
-
-            // Event Listener
-            expireDate.addEventListener("input", (e) => {
-                    const dateExpression = new RegExp("^(0[1-9]|1[0-2])\/?([0-9]{2})$");
-                    if (dateExpression.test(e.target.value)) {
-                            expireDateWarning.classList.add("hidden");
-                            let data = e.target.value.split("/");
-                            let expirationMonth = data[0];
-                    let expirationYear = '20' + data[1];
-                    // Validate expiration date
-                    if (!validateExpirationDate(expirationMonth, expirationYear)) {
-                        expireDateWarning.classList.remove("hidden");
-                        return "Card has expired";
-                    } else {
-                        expireDateWarning.classList.add("hidden");
-                    }
-                } else {
-                    expireDateWarning.classList.remove("hidden");
-                }
-            });
-
-    }
-
-
 // // validate form
 
-    
-
-// // CVC Validation
-//     function validateCVV(cvcIn) {
-//         const cvvPattern = /^[0-9]{3}$/;
-//         return cvvPattern.test(cvcIn);
-//     }
-
-//     cvcIn.addEventListener("input", (e) => {
-//         if (!validateCVV(e.target.value)) {
-//             cvcIn.classList.add("error");
-//             errCvc.innerHTML = "Invalid CVV";
-//         } else {
-//             cvcIn.classList.remove("error");
-//             errCvc.innerHTML = "";
-//         }
-//     });
 
 
 // // reset
