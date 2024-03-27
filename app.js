@@ -115,8 +115,23 @@ document.querySelector('#form-submit').addEventListener('click', function(e) {
     if (!validateCard()) {
         cardNumIn.classList.add("error");
         errNumber.innerHTML = "Card not valid";
-    } else {
+    } else if(!fillCheck()){
+        nameIn.classList.add("error");
+        expMonthIn.classList.add("error");
+        expYearIn.classList.add("error");
+        cvcIn.classList.add("error");
+        errName.innerHTML = "Can't be empty";
+        errDate.innerHTML = "Can't be empty";
+        errCvc.innerHTML = "Can't be empty";
+    }else {
+        nameIn.classList.remove("error");
         cardNumIn.classList.remove("error");
+        expMonthIn.classList.remove("error");
+        expYearIn.classList.remove("error");
+        cvcIn.classList.remove("error");
+        errName.innerHTML = "";
+        errDate.innerHTML = "";
+        errCvc.innerHTML = "";
         errNumber.innerHTML = "";
         document.querySelector('.complete-state').classList.add('submitted');
     };
@@ -136,12 +151,26 @@ function validateCard() {
       return true;
     } else if (cardNumIn.value.match(cardnoMastercard)){
         return true;
-    } else if(checkYear===currentYear && expMonthIn>=currentMonth){
+    } else if(expMonthIn>=currentMonth && checkYear==currentYear){
         return true;
     } else {
         return false;
     }
 
+}
+
+function fillCheck() {
+    if (nameIn ==""){
+        return false;
+    } else if (expMonthIn =="") {
+        return false;
+    } else if (expYearIn =="") {
+        return false;
+    } else if(cvcIn =="") {
+        return false;
+    } else {
+        return true;
+    }
 }
 
 // reset
