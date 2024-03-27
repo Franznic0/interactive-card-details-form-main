@@ -109,69 +109,57 @@ const reset = document.querySelector('#complete-submit');
 };
 
 // submit form
-document.querySelector('#form-submit').addEventListener('click', function(e) {
-    e.preventDefault();
-    
-    if (!validateCard()) {
-        cardNumIn.classList.add("error");
-        errNumber.innerHTML = "Card not valid";
-    } else if(!fillCheck()){
-        nameIn.classList.add("error");
-        expMonthIn.classList.add("error");
-        expYearIn.classList.add("error");
-        cvcIn.classList.add("error");
-        errName.innerHTML = "Can't be empty";
-        errDate.innerHTML = "Can't be empty";
-        errCvc.innerHTML = "Can't be empty";
-    }else {
-        nameIn.classList.remove("error");
-        cardNumIn.classList.remove("error");
-        expMonthIn.classList.remove("error");
-        expYearIn.classList.remove("error");
-        cvcIn.classList.remove("error");
-        errName.innerHTML = "";
-        errDate.innerHTML = "";
-        errCvc.innerHTML = "";
-        errNumber.innerHTML = "";
-        document.querySelector('.complete-state').classList.add('submitted');
-    };
-})
 
 function validateCard() {
     var cardnoVisa = /^(?:4[0-9]{12}(?:[0-9]{3})?)$/;
     var cardnoMastercard = /^(?:5[1-5][0-9]{14})$/;
-    
-    const currentDate = new Date();
-    const currentYear = currentDate.getFullYear();
-    const currentMonth = currentDate.getMonth() + 1;
-    let checkYear = "20" + expYearIn;
 
     if(cardNumIn.value.match(cardnoVisa))
     {
       return true;
     } else if (cardNumIn.value.match(cardnoMastercard)){
         return true;
-    } else if(expMonthIn>=currentMonth && checkYear==currentYear){
-        return true;
     } else {
         return false;
     }
-
 }
 
-function fillCheck() {
-    if (nameIn ==""){
-        return false;
-    } else if (expMonthIn =="") {
-        return false;
-    } else if (expYearIn =="") {
-        return false;
-    } else if(cvcIn =="") {
-        return false;
+document.querySelector('#form-submit').addEventListener('click', function(e) {
+    e.preventDefault();
+    
+    if (!validateCard()) {
+        cardNumIn.classList.add("error");
+        errNumber.innerHTML = "Card not valid";
+    
+    } else if(nameIn.value == ""){
+        nameIn.classList.add("error");
+        errName.innerHTML = "Can't be empty";
+
+    } else if(expMonthIn.value == ""){
+        expMonthIn.classList.add("error");
+        errDate.innerHTML = "Can't be empty";
+
+    } else if (expYearIn.value == "") {
+        expYearIn.classList.add("error");
+        errDate.innerHTML = "Can't be empty";
+    
+    } else if(cvcIn.value == "") {
+        cvcIn.classList.add("error");
+        errCvc.innerHTML = "Can't be empty";
+    
     } else {
-        return true;
-    }
-}
+        nameIn.classList.remove("error");
+        errName.innerHTML = "";
+        cardNumIn.classList.remove("error");
+        expMonthIn.classList.remove("error");
+        expYearIn.classList.remove("error");
+        errDate.innerHTML = "";
+        cvcIn.classList.remove("error");
+        errCvc.innerHTML = "";
+        errNumber.innerHTML = "";
+        document.querySelector('.complete-state').classList.add('submitted');
+    };
+})
 
 // reset
 reset.addEventListener('click', () => {
