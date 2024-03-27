@@ -1,5 +1,4 @@
 // output
-
 const nameOut = document.querySelector('#name-output');
 const cardNumOut = document.querySelector(".card-number");
 const expMonthOut = document.querySelector("#month-output");
@@ -7,7 +6,6 @@ const expYearOut = document.querySelector("#year-output");
 const cvcOut = document.querySelector(".cvc-number");
 
 // input
-
 const nameIn = document.querySelector("#cardholder-name");
 const cardNumIn = document.querySelector("#card-number");
 const expMonthIn = document.querySelector("#exp-date-month");
@@ -15,7 +13,6 @@ const expYearIn = document.querySelector("#exp-date-year");
 const cvcIn = document.querySelector("#cvc");
 
 // error
-
 const errName = document.querySelector("#error-cardholder");
 const errNumber = document.querySelector("#error-number");
 const errDate = document.querySelector("#error-date");
@@ -24,10 +21,7 @@ const errCvc = document.querySelector("#error-cvc");
 //reset button
 const reset = document.querySelector('.complete-submit');
 
-
-
 // update values
-
     function updateValues() {
 
         // Name
@@ -43,8 +37,6 @@ const reset = document.querySelector('.complete-submit');
             errName.innerHTML = "";
             nameOut.innerText = nameIn.value;
         };
-
-        
     }
 
     // Card Number
@@ -95,29 +87,28 @@ const reset = document.querySelector('.complete-submit');
             expYearOut.innerText = expYearIn.value;
         }
     }
+    
+    // cvc
+    function validateCVV(cvcIn) {
+        const cvvPattern = /^[0-9]{3}$/;
+        return cvvPattern.test(cvcIn);
+    }
+    let cvcExe = "000";
+    cvcIn.oninput = () => {
+        if (cvcIn.value == "") {
+            cvcOut.innerText = cvcExe;
+        } else if (!validateCVV(cvcIn.value)) {
+            cvcIn.classList.add("error");
+            errCvc.innerHTML = "Invalid CVV";
+        } else {
+            cvcIn.classList.remove("error");
+            errCvc.innerHTML = "";
+            cvcOut.innerText = cvcIn.value;
+        }
+    }
 };
 
-// cvc
-function validateCVV(cvcIn) {
-            const cvvPattern = /^[0-9]{3}$/;
-            return cvvPattern.test(cvcIn);
-        }
-let cvcExe = "000";
-cvcIn.oninput = () => {
-    if (cvcIn.value == "") {
-        cvcOut.innerText = cvcExe;
-    } else if (!validateCVV(cvcIn.value)) {
-        cvcIn.classList.add("error");
-        errCvc.innerHTML = "Invalid CVV";
-    } else {
-        cvcIn.classList.remove("error");
-        errCvc.innerHTML = "";
-        cvcOut.innerText = cvcIn.value;
-    }
-}
-    
     // submit form
-    
         document.querySelector('#form-submit').addEventListener('click', function(e) {
             // e.preventDefault();
     
@@ -127,9 +118,7 @@ cvcIn.oninput = () => {
         })
 
     // validate card
-
     function validateCard () {
-        
         // Luhn Algorithm
             function validateLuhnAlgorithm(cardNumIn) {
                 let nCheck = 0, bEven = false;
@@ -143,10 +132,8 @@ cvcIn.oninput = () => {
                     nCheck += nDigit;
                     bEven = !bEven;
                 }
-            
                 return (nCheck % 10) == 0;
             }
-
     }
 
     // Date validation
@@ -171,10 +158,7 @@ cvcIn.oninput = () => {
     
         return false;
     }
-// // validate form
-
-
-
+    
 // // reset
 
 // // function clearForm() {

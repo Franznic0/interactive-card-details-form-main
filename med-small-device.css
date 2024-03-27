@@ -1,0 +1,38 @@
+@media screen and (max-width: 800px) {
+        main {
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: 12rem 1fr;
+        }
+        .card-container{
+            display: grid;
+            place-content: center;
+            grid-template-areas: 'cards-center';
+            grid-row: 1/2;
+
+            background-image: url(./images/bg-main-mobile.png);
+        }
+        .front-card,
+        .retro-card{
+            scale: .6;
+            transition: .3s;
+        }
+        .front-card{
+            position: relative;
+            grid-area: card-center;
+            transform: translate(-6rem, 6rem);
+        }
+        .retro-card{
+            position: relative;
+            grid-area: card-center;
+            transform: translate(6rem, -1rem);
+        }
+        .form-container{
+            grid-column: 1;
+            grid-row: 2/3;
+        }
+        .card-input-form{
+            width: 100%;
+            margin: .5rem auto;
+        }
+    }
