@@ -19,7 +19,7 @@ const errDate = document.querySelector("#error-date");
 const errCvc = document.querySelector("#error-cvc");
 
 //reset button
-const reset = document.querySelector('.complete-submit');
+const reset = document.querySelector('#complete-submit');
 
 // update values
     function updateValues() {
@@ -108,67 +108,62 @@ const reset = document.querySelector('.complete-submit');
     }
 };
 
-    // submit form
-        document.querySelector('#form-submit').addEventListener('click', function(e) {
-            // e.preventDefault();
+// submit form
+document.querySelector('#form-submit').addEventListener('click', function(e) {
+    e.preventDefault();
     
-            // validateCard();
-            validateDate();
-            validationCvc();
-        })
+    if (!validateCard()) {
+        cardNumIn.classList.add("error");
+        errNumber.innerHTML = "Card not valid";
+    } else {
+        cardNumIn.classList.remove("error");
+        errNumber.innerHTML = "";
+        document.querySelector('.complete-state').classList.add('submitted');
+    };
+})
 
-    // validate card
-    function validateCard () {
-        // Luhn Algorithm
-            function validateLuhnAlgorithm(cardNumIn) {
-                let nCheck = 0, bEven = false;
-            
-                for (var n = cardNumIn.length - 1; n >= 0; n--) {
-                    var cDigit = cardNumIn.charAt(n),
-                        nDigit = parseInt(cDigit, 10);
-            
-                    if (bEven && (nDigit *= 2) > 9) nDigit -= 9;
-            
-                    nCheck += nDigit;
-                    bEven = !bEven;
-                }
-                return (nCheck % 10) == 0;
-            }
-    }
-
-    // Date validation
-
-    // Expiration Date Validation
-    function validateExpirationDate(expMonthIn, expYearIn) {
-        const currentDate = new Date();
-        const currentYear = currentDate.getFullYear();
-        const currentMonth = currentDate.getMonth() + 1; // January is 0
-            
-        // expYearIn.setAttribute('max', currentYear);
-        expYearIn.attr.max = currentYear + 4;
-        console.log(expYearIn.attr.max);
-
-        console.log(expYearIn.attr.max);
-             
-        if (expYearIn > currentYear) {
-            return true;
-        } else if (expYearIn === currentYear && expMonthIn >= currentMonth) {
-            return true;
-        }
+function validateCard() {
+    var cardnoVisa = /^(?:4[0-9]{12}(?:[0-9]{3})?)$/;
+    var cardnoMastercard = /^(?:5[1-5][0-9]{14})$/;
     
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth() + 1;
+    let checkYear = "20" + expYearIn;
+
+    if(cardNumIn.value.match(cardnoVisa))
+    {
+      return true;
+    } else if (cardNumIn.value.match(cardnoMastercard)){
+        return true;
+    } else if(checkYear===currentYear && expMonthIn>=currentMonth){
+        return true;
+    } else {
         return false;
     }
-    
-// // reset
 
-// // function clearForm() {
-// //     const inputContainers = Array.from(document.querySelectorAll('.input-container'));
-  
-// //     for (let i=0; i < inputContainers.length; i++) {
-// //       inputContainers[i].innerHTML = "";
-// //     }
-// //   }
-// // budgetNumberInput.value = '';
-// // 
+}
+
+// reset
+reset.addEventListener('click', () => {
+    clearForm();
+    resetCard();
+    document.querySelector('.complete-state').classList.remove('submitted');
+})
+
+function clearForm() {
+    const inputContainers = document.querySelectorAll('.card-details');
+    for (let i=0; i < inputContainers.length; i++) {
+      inputContainers[i].value = "";
+    }
+  }
+
+function resetCard() {
+    nameOut.innerHTML = "Jane Appleseed";
+    cardNumOut.innerHTML = "0000 0000 0000 0000";
+    expMonthOut.innerHTML = "00";
+    expYearOut.innerHTML = "00";
+    cvcOut.innerHTML = "000";
+}
 
 updateValues();
