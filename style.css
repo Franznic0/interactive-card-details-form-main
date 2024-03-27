@@ -1,287 +1,352 @@
-/*
-  1. Use a more-intuitive box-sizing model.
-*/
-*, *::before, *::after {
-    box-sizing: border-box;
-  }
-  /*
-    2. Remove default margin
-  */
-  * {
-    margin: 0;
-    padding: 0;
-  }
-  /*
-    3. Allow percentage-based heights in the application
-  */
-  html, body {
-    height: 100%;
-  }
-  /*
-    Typographic tweaks!
-    4. Add accessible line-height
-    5. Improve text rendering
-  */
-  body {
-    display: flex;
-    flex-direction: column;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
-    
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 18px;
+* {
+  margin: 0;
+  padding: 0;
+}
 
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 4rem;
-  }
-  /*
-    6. Improve media defaults
-  */
-  img, picture, video, canvas, svg {
-    display: block;
-    max-width: 100%;
-  }
-  /*
-    7. Remove built-in form typography styles
-  */
-  input, button, textarea, select {
-    font: inherit;
-  }
-  /*
-    8. Avoid text overflows
-  */
-  p, h1, h2, h3, h4, h5, h6 {
-    overflow-wrap: break-word;
-  }
-  /*
-    9. Create a root stacking context
-  */
-  #root, #__next {
-    isolation: isolate;
-  }
+:root {
+  /* colors */
 
-  :root {
+  /* primary-clrs */
+  --b-active: linear-gradient(hsl(249, 99%, 64%) to hsl(278, 94%, 30%));
+  --b-error: hsl(0, 100%, 66%);
 
-    /* colors */
+  /* neutral */
+  --fc-white: hsl(0, 0%, 100%);
+  --fc-light: hsl(270, 3%, 87%);
+  --fc-dark: hsl(279, 6%, 55%);
+  --bg-dark: hsl(278, 68%, 11%);
 
-    /* primary-clrs */
-    --bb-active: linear-gradient(hsl(249, 99%, 64%) to hsl(278, 94%, 30%));
-    --bb-error: hsl(0, 100%, 66%);
+  --fs-small: 0.6rem;
+  --fs-normal: 0.75rem;
+  --fs-big: 1.4rem;
+}
 
-    /* neutral */
-    --white: hsl(0, 0%, 100%);
-    --fc-light: hsl(270, 3%, 87%);
-    --fc-dark: hsl(279, 6%, 55%);
-    --bg-dark: hsl(278, 68%, 11%);
-  }
+html,
+body {
+  height: 100%;
+}
 
-  /* card container */
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
 
-  .card-container {
-    position: relative;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: var(--fs-normal);
+  text-transform: uppercase;
+}
 
-    background-image: url(./images/bg-main-mobile.png);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+::selection {
+  background-color: var(--fc-light);
+}
 
-    height: 195px;
-  }
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
 
-  .front-card {
-    position: absolute;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 2fr 1fr 1fr;
-    gap: .5rem;
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
 
-    z-index: 2;
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+span {
+  overflow-wrap: break-word;
+  cursor: default;
+}
 
-    grid-area: card-placement;
+main {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
 
-    width: 14.5rem;
-    height: 8rem;
-    padding: .9rem;
+  height: 100%;
+}
 
-    background-image: url(./images/bg-card-front.png);
-    background-size: contain;
-    background-repeat: no-repeat;
+/* container */
 
-    box-shadow: 10px 10px 17px 5px rgba(0,0,0,0.11);
+.container {
+  letter-spacing: 0.1rem;
+}
 
-    transform: translateY(3rem);
-  }
+/* card container */
+
+.card-container {
+  position: relative;
+  grid-column: 1/1;
+
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  background-image: url(./images/bg-main-desktop.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.front-card,
+.retro-card {
+  width: 350px;
+  height: 192px;
+  padding: 1.7rem 1.5rem;
+
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 10px 10px 17px 5px rgba(0, 0, 0, 0.11);
+}
+
+.front-card {
+  position: absolute;
+  z-index: 10;
+  color: var(--fc-white);
+
+  background-image: url(./images/bg-card-front.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  transform: translate(6rem, -7rem);
+  transition: .3s;
+}
+
+.card-logo {
+  width: 65px;
+  margin-bottom: 2.7rem;
+}
+
+.card-number {
+  display: block;
+  font-size: var(--fs-big);
+  word-spacing: 0.2rem;
+  letter-spacing: 0.13rem;
+
+  width: 100%;
+  margin: 1rem auto;
+}
+
+.card-details-wrap {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-details-wrap p {
+  font-size: var(--fs-normal);
+}
+
+.retro-card {
+  position: absolute;
+  z-index: 8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-image: url(./images/bg-card-back.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  transform: translate(10rem, 7rem);
+  transition: .3s;
+}
+
+.cvc-number {
+  text-align: center;
+  color: var(--fc-white);
+  letter-spacing: 0.1rem;
+
+  margin-right: 1rem;
+  margin-left: auto;
+}
+
+/* input form */
+
+.form-container {
+  grid-column: 2/4;
+  grid-row: 1;
+
+  display: grid;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-input-form {
+  max-width: 290px;
+  margin-left: 4rem;
+}
+
+.card-input-form > * {
+  width: 100%;
+
+  margin-top: 0.3rem;
+}
+
+label {
+  font-size: var(--fs-small);
+  color: var(--bg-dark);
+}
+
+.card-details {
+  color: var(--bg-dark);
+  border: 1px solid var(--fc-light);
+  border-radius: 7px;
+
+  cursor: pointer;
+
+  font-size: 0.9rem;
+  padding: 0.4em 0.8em;
+}
+
+::placeholder {
+  color: var(--fc-light);
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.card-security-wrap {
+  display: flex;
+  gap: 1rem;
+}
+
+.card-security {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
   
-  .card-logo {
-    grid-row: 1/2;
-  }
+  width: 50%;
+}
+
+.exp-date-wrap {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.input-security-det {
+  width: 50%;
+}
+
+.card-details:hover,
+.card-details:focus,
+.card-details:active,
+.card-details:target {
+  border: 1px solid var(--bg-dark);
+}
+
+.error-message {
+  color: var(--b-error);
+  text-transform: none;
+  letter-spacing: normal;
+  font-size: 0.8em;
+  min-height: 0.7lh;
   
-  .card-logo img {
-    width: 2.7rem;
-  }
+  margin-bottom: 0.8rem;
+}
+
+.error {
+  border: 1px solid var(--b-error);
+}
+
+.submit {
+  padding: 0.65rem;
+  cursor: pointer;
+
+  letter-spacing: 0.1rem;
+  color: var(--fc-white);
+
+  border-radius: 7px;
+  background-color: var(--bg-dark);
+}
+
+.submit:hover,
+#complete-submit:hover {
+  box-shadow: 0 0 7px 4px var(--fc-light);
+}
+
+/* Completed state */
+
+.complete-state {
+  display: grid;
+  align-items: center;
+  text-align: center;
+  grid-column: 2/4;
+  grid-row: 1;
+  z-index: 2;
   
-  .card-number {
-    grid-row: 2/3;
-    grid-column: 1/3;
+  scale: 0;
+  transition: .3s;
 
-    font-size: .9rem;
-    color: var(--white);
-    word-spacing: .2rem;
-    letter-spacing: .1rem;
+  width: 100%;
+  height: 100%;
 
-    width: 100%;
-    padding-top: .8rem;
+  background-color: var(--fc-white);
+}
 
-    place-self: center;
-  }
+.complete-state.submitted{
+  scale: 1;
+  transition: .3s;
+}
 
-  .card-details-wrap {
-    grid-row: 3/4;
-    grid-column: 1/3;
+.complete-state-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
 
-    display: flex;
-    justify-content: space-between;
+  width: 300px;
+  margin: auto;
+}
 
-    font-size: .5rem;
-  }
+.complete-state-img {
+  width: 4rem;
+  margin: auto;
+  margin-bottom: 1rem;
+}
 
-  .card-details-wrap p {
-    color: var(--fc-light);
-    text-transform: uppercase;
-  }
-  
-  .retro-card {
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    grid-area: card-placement;
+.complete-state-header {
+  font-size: var(--fs-big);
+  letter-spacing: 0.2rem;
+}
 
-    width: 14.5rem;
-    height: 8rem;
-    padding: 1.7rem;
+.complete-state-text {
+  color: var(--fc-dark);
+  letter-spacing: 0.05rem;
+  text-transform: none;
+}
 
-    background-image: url(./images/bg-card-back.png);
-    background-size: cover;
-    background-repeat: no-repeat;
+#complete-submit {
+  width: 100%;
+  margin-top: 1rem;
+}
 
-    transform: translate(3.5rem, -1.5rem);
-  }
+footer {
+  margin-bottom: 0;
+  padding: 0.5rem;
+}
 
-  .cvc-number {
-    text-align: right;
-    color: var(--white);
-    font-size: .5rem;
-    letter-spacing: .1rem;
+.attribution {
+  font-size: clamp(9px, 1.9vw, 10px);
+  text-align: center;
+}
 
-    width: 100%;
-  }
-
-  /* container */
-
-  .container {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    padding: 4rem 1rem 2rem 1rem;
-
-    font-size: .6rem;
-    text-transform: uppercase;
-    color: var(--bg-dark);
-    letter-spacing: .1rem;
-    font-weight: bold;
-  }
-
-  /* input form */
-
-  .card-input-form {
-    display: flex;
-    flex-direction: column;
-    gap: .5rem;
-  }
-
-  .card-details{
-    color: var(--fc-light);
-    border-color: var(--fc-light);
-    border-radius: 7px;
-
-    padding: .5em;
-
-    font-size: .8rem;
-  }
-
-  .card-security-wrap {
-    display: flex;
-    gap: .5rem;
-  }
-
-  .card-security {
-    display: flex;
-    flex-direction: column;
-    gap: .5rem;
-
-    width: 50%;
-  }
-
-  .exp-date-wrap {
-    display: flex;
-    gap: .5rem;
-  }
-
-  .input-security-det {
-    width: 50%;
-  }
-
-  .error-message {
-    color: var(--bb-error);
-    text-transform: none;
-  }
-
-  .submit {
-    margin: 1rem 0 .5rem 0;
-    padding: .65rem;
-
-    font-size: .8rem;
-    letter-spacing: .1rem;
-
-    border-radius: 7px;
-
-    background-color: var(--bg-dark);
-    color: var(--white);
-  }
-
-  /* Completed state */
-
-  .form-container {
-    display: none;
-  }
-
-  .complete-state {
-    align-items: center;
-    gap: 1.3rem;
-  }
-
-  .complete-state-img {
-    width: 4rem;
-  }
-
-  .complete-state-header {
-    font-size: 1.4rem;
-    letter-spacing: .2rem;
-  }
-
-  .complete-state-text {
-    color: var(--fc-dark);
-    text-transform: none;
-    font-size: .8rem;
-  }
-
-  #compolete-submit {
-    width: 100%;
-  }
-
-
-  .attribution { font-size: 11px; text-align: center; }
-  .attribution a { color: hsl(228, 45%, 44%); }
+.attribution a {
+  color: hsl(228, 45%, 44%);
+}

@@ -3,12 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
-
-  <link rel="stylesheet" href="style.css">
+  
   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=Space+Grotesk:wght@500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="./med-small-device.css">
   
   <title>Frontend Mentor | Interactive card details form</title>
 
@@ -22,25 +24,19 @@
 
       <div class="front-card">
 
-        <div class="card-logo">
-          <img src="./images/card-logo.svg" alt="Logocard">
-        </div>
-        
-        <div class="card-number">
-          <p>0000 0000 0000 0000</p>
-        </div>
-
+        <img class="card-logo" src="./images/card-logo.svg" alt="Logocard">
+        <span class="card-number output">0000 0000 0000 0000</span>
         <div class="card-details-wrap">
-          <p>Jane Appleseed</p>
-          <p>00/00</p>
+          <p id="name-output" class="output">Jane Appleseed</p>
+          <p id="expiration-output "><span id="month-output" class="output">00</span>/<span id="year-output">00</span></p>
         </div>      
         
       </div>
 
       <div class="retro-card">
-        <div class="cvc-number">
+        <p class="cvc-number output">
           000
-        </div>
+        </p>
       </div>
 
     </section>
@@ -49,15 +45,15 @@
 
     <section class="container form-container">
 
-      <form action="/" class="card-input-form">
+      <form action="#" class="card-input-form">
 
         <label for="card-container">Cardholder Name</label>
-        <input type="text" name="cardholder-name" id="caldholder-name" class="card-details" placeholder="e.g. Jane Appleseed">
-        <p class="error-message error-cardholder"></p>
+        <input type="text" name="cardholder-name" id="cardholder-name" class="card-details" placeholder="e.g. Jane Appleseed" maxlength="25" required>
+        <p id="error-cardholder" class="error-message "></p>
         
         <label for="card-number">Card Number</label>
-        <input type="text" name="card-number" id="card-number" class="card-details" placeholder="e.g. 1234 5678 9123 0000">
-        <p class="error-message error-number"></p>
+        <input type="text" inputmode="numeric" pattern="[0-9\s]{13,19}" autocomplete="cc-number"  maxlength="16" name="card-number" id="card-number" class="card-details" placeholder="e.g. 1234 5678 9123 0000" >
+        <p id="error-number" class="error-message "></p>
         
         <div class="card-security-wrap">
 
@@ -66,37 +62,41 @@
             <label for="exp-date">Exp. Date (MM/YY)</label>
             <div class="exp-date-wrap">
 
-              <input type="text" name="exp-date" id="exp-date-month" class="card-details input-security-det" placeholder="MM">
-              <input type="text" name="exp-date" id="exp-date-year" class="card-details input-security-det" placeholder="YY">
+              <input type="number" name="exp-date" id="exp-date-month" class="card-details input-security-det" placeholder="MM" min="01" max="12">
+              <input type="number" name="exp-date" id="exp-date-year" class="card-details input-security-det" placeholder="YY" min="" max="">
             
             </div>
-            <p class="error-message error-date"></p>
+            <p id="error-date" class="error-message "></p>
 
-          </div>
+          </div> 
   
           <div class="card-security cvc">
 
             <label for="cvc">CVC</label>
-            <input type="text" name="cvc" id="cvc" class="card-details" placeholder="e.g. 123">
-            <p class="error-message error-cvc"></p>
+            <input type="number" name="cvc" id="cvc" class="card-details" placeholder="e.g. 123" >
+            <p id="error-cvc" class="error-message"></p>
 
           </div>
 
         </div>
+        <button id="form-submit" type="submit" class="submit">Confirm</button>
 
       </form>
 
-      <button id="form-submit" type="button" class="submit">Confirm</button>
     </section>
     
    <!-- Completed state start -->
 
     <section class="container complete-state">
 
-      <img class="complete-state-img" src="./images/icon-complete.svg" alt="Complete!">
-      <h2 class="complete-state-header">Thank you!</h2>
-      <p class="complete-state-text">We've added your card details</p>
-      <button id="compolete-submit" type="button" class="submit">Continue</button>
+      <div class="complete-state-wrapper">
+        
+        <img class="complete-state-img" src="./images/icon-complete.svg" alt="Complete!">
+        <h2 class="complete-state-header">Thank you!</h2>
+        <p class="complete-state-text">We've added your card details</p>
+        <button id="complete-submit" type="button" class="submit">Continue</button>
+
+      </div>
 
     </section>
 
@@ -106,7 +106,7 @@
     
     <div class="attribution">
       Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
-      Coded by <a href="#">Your Name Here</a>.
+      Coded by <a href="https://franznico.netlify.app/">Francesco Nicolosi</a>.
     </div>
   
   </footer>
@@ -114,6 +114,6 @@
   
   
 
-  <script src="./app.js"></script>
+  <script src="./app.js" type="text/javascript"></script>
 </body>
 </html>
